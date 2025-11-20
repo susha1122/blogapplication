@@ -1,5 +1,5 @@
 import React from 'react'
-import Comment from './comment'
+import Comment from './Comment'
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
 import {toast} from 'react-toastify' 
