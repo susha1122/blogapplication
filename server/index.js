@@ -1,4 +1,3 @@
-// index.js (full file)
 import express from "express";
 import userRouter from "./routes/user.route.js";
 import postRouter from "./routes/post.route.js";
@@ -8,19 +7,22 @@ import dotenv from "dotenv";
 import webHookRouter from "./routes/webhook.route.js";
 import { clerkMiddleware } from "@clerk/express";
 import cors from "cors";
+import bodyParser from 'body-parser';
 
 dotenv.config();
 
 const app = express();
 
 // CORS - allow the client origin (set in .env)
-app.use(cors({ origin: process.env.CLIENT_URL }));
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}));
 
 // Webhook route must receive raw body for signature verification.
-// It's registered BEFORE express.json() and clerkMiddleware() so bodyParser.raw works correctly.
-app.use("/webhooks", webHookRouter);
+app.use('/api/webhook', bodyParser.raw({ type: '*/*' }));
 
-// Body parser for regular JSON endpoints
+// After that, normal json parsing for other routes
 app.use(express.json());
 
 // Clerk middleware for protecting routes and providing req.auth()
@@ -47,7 +49,20 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(3000, () => {
-  connectDB();
-  console.log("server is running on port 3000!");
-});
+const PORT = process.env.PORT || 3000;
+
+// Start server only after DB connection
+const startServer = async () => {
+  try {
+    console.log('Mongo URI:', process.env.MONGO);
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to connect to DB', error);
+    process.exit(1);
+  }
+};
+
+startServer();

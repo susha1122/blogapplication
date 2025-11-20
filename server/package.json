@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+
   },
   "keywords": [],
   "author": "",
@@ -23,5 +25,8 @@
     "mongoose": "^8.19.2",
     "moongoose": "^0.0.1",
     "svix": "^1.81.0"
+  },
+  "devDependencies": {
+    "node": "^25.2.1"
   }
 }
