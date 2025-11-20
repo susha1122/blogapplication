@@ -70,8 +70,9 @@ const Comments = ({postId}) => {
               desc: `${mutation.variables.desc} (Sending...)`,
               createdAt: new Date(),
               user: {
-                img: user.imageUrl,
-                username: user.username,
+                /* FIX: Added optional chaining in case user is not fully loaded/null */
+                img: user?.imageUrl,
+                username: user?.username,
               }
             }}/>
           )
@@ -88,4 +89,3 @@ const Comments = ({postId}) => {
 }
 
 export default Comments
-

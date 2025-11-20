@@ -35,7 +35,8 @@ const SinglePostPage = () => {
           <h1 className='text-xl md:text-3xl xl:text-4xl 2xl:text-5xl font-semibold'>{data.title}</h1>
           <div className='flex items-center gap-2 text-gray-400 text-sm'>
             <span>Written by</span>
-            <Link className='text-blue-800'>{data.user.username}</Link>
+            {/* FIX: Added optional chaining ?. and fallback */}
+            <Link className='text-blue-800'>{data.user?.username || "Unknown User"}</Link>
             <span>on</span>
             <Link className='text-blue-800'>{data.category}</Link>
             <span>{format(data.createdAt)}</span>
@@ -61,12 +62,14 @@ const SinglePostPage = () => {
         <div className='px-4 h-max sticky top-8'>
           <h1 className='mb-4 text-sm font-medium'>Author</h1>
           <div className='flex flex-col gap-4'>
-            {data.user.img && 
+            {/* FIX: Added optional chaining ?. */}
+            {data.user?.img && 
               <div className='flex items-center gap-8'>
-                <Image src={data.user.img} isFullUrl={isFullUrl(data.user.img)} className="w-12 h-12 rounded-full object-cover" w="48" h="48" alt={data.user.username}/>
+                <Image src={data.user.img} isFullUrl={isFullUrl(data.user.img)} className="w-12 h-12 rounded-full object-cover" w="48" h="48" alt={data.user?.username}/>
               </div>
             }
-            <Link className='text-blue-800 '>{data.user.username}</Link>
+            {/* FIX: Added optional chaining ?. and fallback */}
+            <Link className='text-blue-800 '>{data.user?.username || "Unknown Author"}</Link>
             <p className='text-sm text-gray-500'>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             <div className='flex gap-2'>
               <Link>
