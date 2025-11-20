@@ -12,7 +12,7 @@ const PostListItem = ({post}) => {
     <div className='flex flex-col xl:flex-row gap-8 mb-12'>
         {post.img &&
             <div className='md:hidden xl:block xl:flex-1'>
-                <Image src={post.img} isFullUrl={isFullUrl}  className="rounded-2xl object-cover" w="735" />
+                <Image src={post.img} isFullUrl={isFullUrl}  className="rounded-2xl object-cover h-[200px] md:h-[300px] xl:h-[400px] mb-50 w-full max-w-[735px] xl:w-[735px]" />
             </div>
         }
         

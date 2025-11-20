@@ -31,6 +31,8 @@ const Write = () => {
 
   const {getToken} = useAuth();
 
+  
+
   const mutation = useMutation({
       mutationFn: async (newPost)=> {
         const token = await getToken()
@@ -65,6 +67,7 @@ const Write = () => {
       desc: formData.get("desc"),
       content: value,
     }
+    console.log("Post data sent from frontend:", data);
     console.log(data);
 
     mutation.mutate(data)

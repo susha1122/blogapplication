@@ -7,7 +7,6 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { format } from "timeago.js"
 
-
 const fetchPost = async (slug) =>{
     const res = await axios.get(`${import.meta.env.VITE_API_URL}/posts/${slug}`);
     return (await res).data;
@@ -17,16 +16,16 @@ const SinglePostPage = () => {
 
   const isFullUrl = (img) => img?.startsWith("http");
 
-    const { slug } = useParams();
+  const { slug } = useParams();
 
-    const { isPending, error, data } = useQuery({
-        queryKey: ["post", slug],
-        queryFn: ()=> fetchPost(slug),
-    });
+  const { isPending, error, data } = useQuery({
+      queryKey: ["post", slug],
+      queryFn: ()=> fetchPost(slug),
+  });
 
-    if(isPending) return "loading..";
-    if(error) return "Something went wrong!" + error.message;
-    if(!data) return "Post not found!";
+  if(isPending) return "loading..";
+  if(error) return "Something went wrong!" + error.message;
+  if(!data) return "Post not found!";
 
   return (
     <div className='flex flex-col gap-4'>
@@ -36,7 +35,7 @@ const SinglePostPage = () => {
           <h1 className='text-xl md:text-3xl xl:text-4xl 2xl:text-5xl font-semibold'>{data.title}</h1>
           <div className='flex items-center gap-2 text-gray-400 text-sm'>
             <span>Written by</span>
-            <Link className='text-blue-800'>J{data.user.username}</Link>
+            <Link className='text-blue-800'>{data.user.username}</Link>
             <span>on</span>
             <Link className='text-blue-800'>{data.category}</Link>
             <span>{format(data.createdAt)}</span>
@@ -51,36 +50,13 @@ const SinglePostPage = () => {
           </div>
         }
       </div>
-      {/* content */}
+      {/* actual post content */}
       <div className='flex flex-col md:flex-row gap-8'>
-        {/* text */}
-        <div className='lg:text-lg flex flex-col gap-6 text-justify'>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et blanditiis velit porro, aliquid cum recusandae, adipisci numquam consequatur repellat officia possimus. Nisi non architecto odio repudiandae sint quasi deleniti velit.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit cum deleniti iure voluptatem facilis ullam laborum temporibus! Voluptates quos aliquam vero in assumenda iste quia ut esse, ad, itaque earum!
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et blanditiis velit porro, aliquid cum recusandae, adipisci numquam consequatur repellat officia possimus. Nisi non architecto odio repudiandae sint quasi deleniti velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores culpa voluptates iure dolor sequi, repudiandae maxime illo quasi et ipsam? Tenetur unde aut aliquid veniam ratione! Deserunt aut consequuntur quae.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et blanditiis velit porro, aliquid cum recusandae, adipisci numquam consequatur repellat officia possimus. Nisi non architecto odio repudiandae sint quasi deleniti velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi facere sint nostrum nobis exercitationem harum quas at eveniet illum, voluptatem pariatur suscipit minima voluptas ratione, facilis, distinctio illo sunt. Explicabo.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et blanditiis velit porro, aliquid cum recusandae, adipisci numquam consequatur repellat officia possimus. Nisi non architecto odio repudiandae sint quasi deleniti velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi facere sint nostrum nobis exercitationem harum quas at eveniet illum, voluptatem pariatur suscipit minima voluptas ratione, facilis, distinctio illo sunt. Explicabo.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et blanditiis velit porro, aliquid cum recusandae, adipisci numquam consequatur repellat officia possimus. Nisi non architecto odio repudiandae sint quasi deleniti velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi facere sint nostrum nobis exercitationem harum quas at eveniet illum, voluptatem pariatur suscipit minima voluptas ratione, facilis, distinctio illo sunt. Explicabo.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et blanditiis velit porro, aliquid cum recusandae, adipisci numquam consequatur repellat officia possimus. Nisi non architecto odio repudiandae sint quasi deleniti velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi facere sint nostrum nobis exercitationem harum quas at eveniet illum, voluptatem pariatur suscipit minima voluptas ratione, facilis, distinctio illo sunt. Explicabo.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et blanditiis velit porro, aliquid cum recusandae, adipisci numquam consequatur repellat officia possimus. Nisi non architecto odio repudiandae sint quasi deleniti velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi facere sint nostrum nobis exercitationem harum quas at eveniet illum, voluptatem pariatur suscipit minima voluptas ratione, facilis, distinctio illo sunt. Explicabo.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et blanditiis velit porro, aliquid cum recusandae, adipisci numquam consequatur repellat officia possimus. Nisi non architecto odio repudiandae sint quasi deleniti velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi facere sint nostrum nobis exercitationem harum quas at eveniet illum, voluptatem pariatur suscipit minima voluptas ratione, facilis, distinctio illo sunt. Explicabo.
-          </p>
-        </div>
+        {/* Render actual post content from backend as HTML */}
+        <div
+          className='lg:text-lg flex flex-col gap-6 text-justify'
+          dangerouslySetInnerHTML={{ __html: data.content }}
+        />
         {/* menu */}
         <div className='px-4 h-max sticky top-8'>
           <h1 className='mb-4 text-sm font-medium'>Author</h1>
@@ -101,8 +77,6 @@ const SinglePostPage = () => {
               </Link>
             </div>
           </div>
-          
-          
           <PostMenuActions post={data} />
           <h1 className='mt-8 mb-4 text-sm font-medium'>Categories</h1>
           <div className='flex flex-col gap-2 text-sm'>
@@ -117,8 +91,8 @@ const SinglePostPage = () => {
           <Search />
         </div>
       </div>
+      {/* Comments */}
       <Comments postId={data._id}/>
-
     </div>
   )
 }

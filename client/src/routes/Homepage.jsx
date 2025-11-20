@@ -17,10 +17,10 @@ const Homepage = () => {
         {/* title */}
         <div className=''>
           <h1 className='text-gray-800 text-xl md:text-4xl lg:text-5xl font-bold'>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            BlogCraft | Create, Publish, Inspire
           </h1>
           <p className='m-0 mt-2 text-md md:text-xl'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            A modern blogging platform with simple tools to write, organize, and publish your content easily.
           </p>
         </div>
         {/* animated button */}
