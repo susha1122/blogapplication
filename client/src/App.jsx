@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from './Components/Navbar'
+import DebugToken from './degubtoken'
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
       {/*INTRODUCTION */}
       {/*FEATURED POSTS */}
       {/*POSTS LIST*/}
+      <DebugToken/>
     </div>
   )
 }
