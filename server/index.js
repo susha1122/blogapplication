@@ -22,6 +22,8 @@ app.use(cors({
 // Webhook route must receive raw body for signature verification.
 app.use('/api/webhook', bodyParser.raw({ type: '*/*' }));
 
+app.use("/webhooks", webHookRouter);
+
 // After that, normal json parsing for other routes
 app.use(express.json());
 
