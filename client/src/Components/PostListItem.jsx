@@ -9,10 +9,10 @@ const PostListItem = ({post}) => {
     const isFullUrl = post.img?.startsWith("http");
 
   return (
-    <div className='flex flex-col xl:flex-row gap-8 mb-12'>
+    <div className='flex flex-col xl:flex-row gap-8 mb-8'>
         {post.img &&
-            <div className='md:hidden xl:block xl:flex-1'>
-                <Image src={post.img} isFullUrl={isFullUrl}  className="rounded-2xl object-cover h-[200px] md:h-[300px] xl:h-[400px] mb-50 w-full max-w-[735px] xl:w-[735px]" />
+            <div className='md:hidden xl:block xl:flex-1 w-full max-w-[735px] xl:w-[735px] mb-5'>
+                <Image src={post.img} isFullUrl={isFullUrl}  className="h-[200px] md:h-[300px] xl:h-[400px] rounded-2xl object-cover w-full" />
             </div>
         }
         
