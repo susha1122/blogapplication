@@ -29,10 +29,10 @@ app.use(express.json());
 app.use(clerkMiddleware());
 
 // Optional: safety headers (CORS already handles most)
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//   next();
+// });
 
 // Routes
 app.use("/users", userRouter);
@@ -54,7 +54,6 @@ const PORT = process.env.PORT || 3000;
 // Start server only after DB connection
 const startServer = async () => {
   try {
-    console.log('Mongo URI:', process.env.MONGO);
     await connectDB();
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
