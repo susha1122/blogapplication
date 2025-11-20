@@ -78,7 +78,11 @@ const FeaturedPost = () => {
           {posts[0].img && (
             <Image
               src={posts[0].img}
-              className="rounded-3xl object-cover w-full h-[200px] md:h-[300px] xl:h-[400px]"
+              // Updated className for responsive height:
+              // Mobile (default): h-[200px] 
+              // Tablet (md): h-[240px] (A slight increase for a better view)
+              // Desktop (xl): h-[288px] (Your requested height)
+              className="rounded-3xl object-cover w-full h-[200px] md:h-[240px] xl:h-[288px]"
               w={900}
               alt={posts[0].title}
             />

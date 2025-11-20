@@ -20,7 +20,7 @@ const PostListPage = () => {
     <div className="flex flex-col-reverse md:flex-row gap-8">
 
       {/* POSTS — takes all available space */}
-      <div className="flex-1">
+      <div className="flex-1 ">
         <PostList />
       </div>
 
